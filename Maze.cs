@@ -1,4 +1,6 @@
-﻿namespace Maze
+﻿using System;
+
+namespace Maze
 {
     public class Maze
     {
@@ -86,6 +88,21 @@
             {
                 ((PictureBox)control).Visible = true;
             }
+        }
+
+
+        // Проверка, что позиция внутри границ лабиринта и не является стеной
+        // true, если позиция доступна, и false в противном случае
+        public bool IsPositionValid(int row, int col)
+        {
+            if (row >= 0 && row < Configuration.Rows && col > 0 && col < Configuration.Columns)
+            {
+                if (cells[row, col].Type == CellType.HALL) 
+                {
+                    return true; 
+                }
+            }
+            return false;
         }
     }
 }

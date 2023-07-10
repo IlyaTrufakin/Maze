@@ -4,6 +4,9 @@ namespace Maze
     {
         public Maze maze; // ссылка на логику всего происходящего в лабиринте
         public Character Hero;
+        private ICharacterFactory characterFactory;
+        private ICharacter playerCharacter;
+        private List<ICharacter> computerCharacters;
 
         public LevelForm()
         {
@@ -31,6 +34,9 @@ namespace Maze
             maze = new Maze(this);
             maze.Generate();
             maze.Show();
+            characterFactory = new CharacterFactory();
+            playerCharacter = characterFactory.CreatePlayerCharacter();
+            computerCharacters = characterFactory.CreateComputerCharacters(3);
         }
 
         private void KeyDownHandler(object sender, KeyEventArgs e)
