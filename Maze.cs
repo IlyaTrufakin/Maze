@@ -42,9 +42,14 @@ namespace Maze
                     {
                         cell = CellType.WALL;
                     }
+                    // стены по периметру лабиринта
+                    if (row == 1 || col == 1 || row == Configuration.Rows - 2 || col == Configuration.Columns - 2)
+                    {
+                        cell = CellType.WALL;
+                    }
 
-                     // есть выход, и соседняя ячейка справа всегда свободна
-                    if (col == 1 && row == 2 ||  col == Configuration.Columns - 1 &&  row == Configuration.Rows - 2)
+                    // есть выход, и соседняя ячейка справа всегда свободна
+                    if (col == 2 && row == 3 ||  col == Configuration.Columns - 2 &&  row == Configuration.Rows - 3)
                     {
                         cell = CellType.HALL;
                     }
@@ -69,19 +74,5 @@ namespace Maze
             }
         }
 
-
-        // Проверка, что позиция внутри границ лабиринта и не является стеной
-        // true, если позиция доступна, и false в противном случае
-        public bool IsPositionValid(int row, int col)
-        {
-            if (row >= 0 && row < Configuration.Rows && col > 0 && col < Configuration.Columns)
-            {
-                if (cells[row, col].Type == CellType.HALL)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
     }
 }

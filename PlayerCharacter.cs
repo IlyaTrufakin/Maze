@@ -18,8 +18,8 @@ namespace Maze
 
         public PlayerCharacter(LevelForm parent)
         {
-            PosX = 0;
-            PosY = 2;
+            PosX = 1;
+            PosY = 3;
             Parent = parent;
             health = 100;
             this.Show();
@@ -85,6 +85,12 @@ namespace Maze
             }
             else if (cellType == CellType.ENEMY)
             {
+                this.health -= 20;
+                if (this.health <= 0)
+                {
+                    return -1;
+                }
+
 
             }
             return 0;

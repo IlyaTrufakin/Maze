@@ -21,7 +21,7 @@ namespace Maze
             this.Parent = parent;
             do
             {
-                PosX = (ushort)parent.random.Next(Configuration.Columns) ;
+                PosX = (ushort)parent.random.Next(Configuration.Columns);
                 PosY = (ushort)parent.random.Next(Configuration.Rows);
             } while (parent.maze.cells[PosY, PosX].Type == CellType.WALL);
             this.Show();
@@ -75,9 +75,13 @@ namespace Maze
 
 
 
-        // Логика атаки компьютерного персонажа
+        // Логика взаимодействия компьютерного персонажа
         public int Interaction(CellType cellType)
         {
+            if (cellType == CellType.HERO)
+            {
+                return -1;
+            }
             return 0;
         }
 
