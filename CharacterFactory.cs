@@ -3,27 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace Maze
 {
-    internal class CharacterFactory: ICharacterFactory
+    public class CharacterFactory: ICharacterFactory
     {
-        public ICharacter CreatePlayerCharacter()
+// Создание и инициализация персонажа игрока
+        public ICharacter CreatePlayerCharacter(LevelForm parent)
         {
-            // Создание и инициализация персонажа игрока
-            return new PlayerCharacter();
+            return new PlayerCharacter(parent);
         }
 
-        public List<ICharacter> CreateComputerCharacters(int count)
+
+// Создание и инициализация персонажей, управляемых компьютером
+        public List<ICharacter> CreateComputerCharacters(LevelForm parent, int count)
         {
             List<ICharacter> computerCharacters = new List<ICharacter>();
 
             for (int i = 0; i < count; i++)
             {
-                // Создание и инициализация персонажей, управляемых компьютером
-                computerCharacters.Add(new PCCharacter());
+                
+                computerCharacters.Add(new PCCharacter(parent));
             }
-
             return computerCharacters;
         }
     }

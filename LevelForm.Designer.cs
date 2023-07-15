@@ -32,12 +32,8 @@
             // 
             // LevelForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(389, 277);
+            ClientSize = new Size(284, 261);
             Name = "LevelForm";
-            Text = "Form1";
-            KeyDown += KeyDownHandler;
             ResumeLayout(false);
         }
 

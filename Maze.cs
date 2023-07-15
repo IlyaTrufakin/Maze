@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace Maze
 {
@@ -8,11 +10,11 @@ namespace Maze
 
         public Cell[,] cells;
         public static Random r = new Random();
-
-        public Maze(LevelForm parent)
+        public int medalCount { get; set; }
+        public Maze(LevelForm parent, ushort rows, ushort columns)
         {
             Parent = parent;
-            cells = new Cell[Configuration.Rows, Configuration.Columns];
+            cells = new Cell[rows, columns];
         }
 
         public void Generate()
@@ -35,37 +37,23 @@ namespace Maze
                         cell = CellType.MEDAL;
                     }
 
-                    // в 1 случае из 250 - размещаем врага
-                    if (r.Next(250) == 0)
-                    {
-                        cell = CellType.ENEMY;
-                    }
-
                     // стены по периметру лабиринта
-                    if (row == 0 || col == 0 ||
-                        row == Configuration.Rows - 1 ||
-                        col == Configuration.Columns - 1)
+                    if (row == 0 || col == 0 || row == Configuration.Rows - 1 || col == Configuration.Columns - 1)
                     {
                         cell = CellType.WALL;
                     }
 
-                    // наш персонажик
-                    if (col == Parent.Hero.PosX &&
-                        row == Parent.Hero.PosY)
-                    {
-                        cell = CellType.HERO;
-                    }
-
-                    // есть выход, и соседняя ячейка справа всегда свободна
-                    if (col == Parent.Hero.PosX + 1 &&
-                        row == Parent.Hero.PosY ||
-                        col == Configuration.Columns - 1 &&
-                        row == Configuration.Rows - 3)
+                     // есть выход, и соседняя ячейка справа всегда свободна
+                    if (col == 1 && row == 2 ||  col == Configuration.Columns - 1 &&  row == Configuration.Rows - 2)
                     {
                         cell = CellType.HALL;
                     }
 
                     cells[row, col] = new Cell(cell);
+                    if (cell == CellType.MEDAL) 
+                    { 
+                        medalCount++; 
+                    }
 
                     var picture = new PictureBox();
                     picture.Name = "pic" + row + "_" + col;
@@ -74,19 +62,10 @@ namespace Maze
                     picture.Location = new Point(
                         col * Configuration.PictureSide,
                         row * Configuration.PictureSide);
-
                     picture.BackgroundImage = cells[row, col].Texture;
-                    picture.Visible = false;
+                    picture.Visible = true;
                     Parent.Controls.Add(picture);
                 }
-            }
-        }
-
-        public void Show()
-        {
-            foreach (var control in Parent.Controls)
-            {
-                ((PictureBox)control).Visible = true;
             }
         }
 
@@ -97,9 +76,9 @@ namespace Maze
         {
             if (row >= 0 && row < Configuration.Rows && col > 0 && col < Configuration.Columns)
             {
-                if (cells[row, col].Type == CellType.HALL) 
+                if (cells[row, col].Type == CellType.HALL)
                 {
-                    return true; 
+                    return true;
                 }
             }
             return false;

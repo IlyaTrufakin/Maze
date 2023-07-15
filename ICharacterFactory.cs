@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Maze
 {
-    internal interface ICharacterFactory
+    public interface ICharacterFactory
     {
-        ICharacter CreatePlayerCharacter();
-        List<ICharacter> CreateComputerCharacters(int count);
+        ICharacter CreatePlayerCharacter(LevelForm parent);
+        List<ICharacter> CreateComputerCharacters(LevelForm parent, int count);
     }
 }
